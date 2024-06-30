@@ -1,0 +1,11 @@
+.battery {
+    font-size: 2em;
+    margin: 20px;
+}
+.battery-level {
+    font-size: 3em;
+    color: green;
+}
+#charging-status {
+    color: blue;
+}
