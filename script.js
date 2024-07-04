@@ -1,3 +1,23 @@
+const batteryLevelEndpoint = "http://192.168.137.90/battery"; // Your NodeMCU IP address
+
+function sendDummyBatteryLevel(level) {
+    fetch(batteryLevelEndpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ level: level })
+    }).then(response => {
+        if (response.ok) {
+            console.log(`Dummy battery level ${level}% sent successfully`);
+        } else {
+            console.error(`Error sending dummy battery level ${level}%`);
+        }
+    }).catch(error => {
+        console.error('Fetch error:', error);
+    });
+}
+
 navigator.getBattery().then(function(battery) {
     function updateBatteryStatus() {
         const batteryLevel = (battery.level * 100).toFixed(0);
