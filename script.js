@@ -16,13 +16,16 @@ function updateDateTime() {
     //console.log(seconds)
     let time = (`${hours}:${minutes}:${seconds}`)
     let date = (`${day}/${month}/${year}`)
-    console.log(date)
-    console.log(time)
+    // console.log(date)
+    // console.log(time)
     document.getElementById('date').innerText = date;
     document.getElementById('time').innerText = time;
 }
 updateDateTime();
 setInterval(updateDateTime, 1000);
+
+
+
 
 
 // device name
@@ -32,10 +35,8 @@ function getDeviceName() {
     if (navigator && navigator.userAgent) {
         deviceName = navigator.userAgent;
     }
-
     return deviceName;
 }
-
 let device = getDeviceName();
 console.log(device);
 document.getElementById('device').innerText = device
@@ -43,10 +44,13 @@ document.getElementById('device').innerText = device
 
 
 
+
+
+
 //battery level and status
-const batteryEndPoint = "http://192.168.43.65/battery";
-const RelayStatusEndPoint = "http://192.168.43.65/relayStatus"
-const ManualSwitchEndPoint = "http://192.168.43.65/manualbtn"
+const batteryEndPoint = "http://192.168.137.104/battery";
+const RelayStatusEndPoint = "http://192.168.137.104/relayStatus";
+
 
 navigator.getBattery().then(function (battery) {
     function updateBatteryStatus() {
@@ -81,57 +85,84 @@ navigator.getBattery().then(function (battery) {
             document.getElementById('status').style.color = "#1a2faa";
         }
         document.getElementById('level').innerText = level;
-        console.log(level)
+        console.log(`The battery charge is ${level}`)
     }
     updateBatteryStatus();
     battery.addEventListener('levelchange', updateBatteryStatus);
     battery.addEventListener('chargingchange', updateBatteryStatus);
     setInterval(() => {
         updateBatteryStatus();
-    }, 10000);
+    }, 5000);
 })
-//fetch relayStatus
 
-fetch(RelayStatusEndPoint)
-    .then(response => response.json())
-    .then(data => {
-        const relayState = data.relayState;
-        if (relayState == 1) {
-            document.getElementById('relayStatus').innerText = "On";
-        } else {
-            document.getElementById('relayStatus').innerText = "Off"
-        }
-        console.log(relayState)
-    })
+
+
+
+
+//fetch relayStatus
+function updateRelaystatus() {
+    fetch(RelayStatusEndPoint)
+        .then(response => response.json())
+        .then(data => {
+            const relayState = data.relayState;
+            if (relayState == 1) {
+                document.getElementById('relayStatus').innerText = "On";
+            } else {
+                document.getElementById('relayStatus').innerText = "Off"
+            }
+        })
+}
+updateRelaystatus();
+setInterval(updateRelaystatus, 1000);
+
+
+
+
+
+
+
 
 //manual relay switch
 let button;
-document.getElementById('btn').addEventListener('change', function () {
-    if (this.checked) {
-        button = "1";
-        event = switched - On;
-        document.getElementById('btn').style.color="green";
-        console.log("switch is on");
+let switchState;
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log("DOMContentLoaded and parsed Successfully")
+    const ManualSwitchEndPoint = "http://192.168.137.104/manualbtn";
+    const btn = document.getElementById('btn')
+    if (btn) {
+        btn.addEventListener('change', () => {
+            console.log("button checked")
+            let button;
+            let switchState;
+            if (this.checked) {
+                button = "1";
+                switchState = "switched-on";
+               
+            }
+            else {
+                button = "0"
+                switchState = "switched-off";
+            }
+            console.log(`Sending switchState: ${switchState}`);
+            
+            fetch(ManualSwitchEndPoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ switchState: button })
+            }).then(response => {
+                if (response.ok) {
+                    console.log(`The state ${switchState} sent successfully`);
+                } else {
+                    console.log(`The state ${switchState} could not be sent`);
+                }
+            }).catch(error => {
+                console.log('Fetch error: ' + error);
+            });
+        });
     } else {
-        button = "0";
-        event = switched - Off;
-        document.getElementById('btn').style.color="red"
-        console.log("switch is off");
+        console.log('Button element not found');
     }
-})
-fetch(ManualSwitchEndPoint, {
-    method: 'POST',
-    headers: {
-        'content-type': 'application/json'
-    },
-    body: JSON.stringify({ relayState: 1 }),
-}).then(Response => {
-    if (Response.ok) {
-        console.log(`the state  ${event}% sent succesfully`);
+});
 
-    } else {
-        console.log(`the state  ${event}% sent succesfully`);
-    }
-}).catch(error => {
-            console.log('Fetch error:' + error);
-        })
