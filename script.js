@@ -77,7 +77,7 @@ navigator.getBattery().then(function (battery) {
             document.getElementById('status').style.color = "#69ff3f";
         }
         else {
-            document.getElementById('status').innerText = "Not Charging";
+            document.getElementById('status').innerText = "!Charging";
             document.getElementById('status').style.color = "#1a2faa";
         }
         document.getElementById('level').innerText = level;
