@@ -4,23 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Battery Status</title>
-
+    <title>SmartPower System</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <div class="battery-level">
-        <div>Battery Level: <span id="battery-level"></span>%</div>
-        <div id="charging-status"></div>
-    </div>
-    <div>
-        <button onclick="sendDummyBatteryLevel(55)">Send Dummy Battery Level (55%)</button>
-        <button onclick="sendDummyBatteryLevel(96)">Send Dummy Battery Level (96%)</button>
-    </div>
+<body class="body">
+    <div class="page">
+        <div class="header">
+            <h1> Smart Power System <span id="cp"> Control Panel</span></h1>
+        </div>
+        <div class="box-container">
+            <div class="box">
+                <h3 class="sub-head">Device Information</h3>
+                <p>Date : <span id="date"></span></p>
+                <p>Time : <span id="time"></span></p>
+                <p>Admin Name : <span id="admin">Keshab Sharma</span></p>
+                <P>Device Detail : <span id="device"></span></P>
+            </div>
+            <div class="box">
+                <h3 class="sub-head">System Status & Controls</h3>
+                <p>Battery Level : <span id="level"></span>%</p>
+                <p>Battery State : <span id="status"></span></p>
+                <p>Relay State : <span id="relayStatus"></span> <button class="btn">Switch State</button>
+                </p>
+            </div>
 
-
-    <script src="script.js"> </script>
+        </div>
+    </div>
+    <script src="script.js
+    "></script>
 </body>
 
 </html>

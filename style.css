@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: "Nunito", sans-serif;
+}
+.body{
+    background-color: #1792c6;
+  }
+.header{
+     text-align: center;
+     padding: 10px;
+     background: #27b883;
+     
+}
+
+.box-container {
+padding-left: 10vw;
+padding-top: 5vw;
+padding-right: 10vw;
+font-size: 1.3rem;
+font-weight: 500;
+color: whitesmoke;
+
+}
+
+.sub-head{
+    color: #3203aa;
+    background: #c9e01a;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 2vw;
+}
+
+
+.box-container .box{
+    padding-bottom:  3vw;
+    
+}
+.box{
+    background: #a358dd;
+    padding: 3vw;
+    border-radius: 5px;
+    margin: 2vw;
+   
+}
+
+.btn{
+    border-radius: 5px;
+    background: #f2f7f8;
+    padding: 1px;
+    cursor: pointer;
+}
+#device{
+    color:blue;
+    font-size: 1rem;
+}
+#relayStatus{
+   font-weight: 600;
+   color: #ffc003;
+ 
+}
+
+#status{
+    font-weight: 700;
+}
