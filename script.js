@@ -117,7 +117,7 @@ function updateRelaystatus() {
         })
 }
 updateRelaystatus();
-setInterval(updateRelaystatus, 100);
+setInterval(updateRelaystatus, 500);
 //------- SYSTEM STATUS ENDS  --------- // 
 
 
