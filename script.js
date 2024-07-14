@@ -59,14 +59,14 @@ navigator.getBattery().then(function (battery) {
     function updateBatteryStatus() {
         const level = (battery.level * 100).toFixed(0);
         const status = battery.charging;
-       
+       let me=70;
         //posting the battery level to nodemcu/device
         fetch(batteryEndPoint, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'  
             },
-            body: JSON.stringify({ level: level})
+            body: JSON.stringify({ level: me })
         }).then(Response => {
             if (Response.ok) {
                 console.log(`Battery level ${level}% sent succesfully`);
